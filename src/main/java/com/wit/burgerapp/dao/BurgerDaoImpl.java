@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository  // Bu sınıftan instance oluşturuyor.
+@Repository  // Bu sınıftan instance oluşturuyor.(Bunu eklemezsen BurgerController Class 'ından hata alırsın, bulamaz burayı.)
 public class BurgerDaoImpl implements BurgerDao {
     // Database 'e touch edecek code: EntityManager
     // veritabanına queries yazdıracak, veritabanından queries okuyacak
