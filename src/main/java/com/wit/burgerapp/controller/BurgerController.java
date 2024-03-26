@@ -30,4 +30,13 @@ public class BurgerController {
     public Burger save(@RequestBody Burger burger){
        return burgerDao.save(burger);
     }
+
+    @PutMapping("/")
+    public Burger update(@RequestBody Burger burger){
+        return burgerDao.update(burger);
+    }
+
+    // id yoksa -> save ,  id varsa -> update yapacak tek bir method yazacağız yarın. "POST + PUT" birleşecek artık.
+
+
 }
