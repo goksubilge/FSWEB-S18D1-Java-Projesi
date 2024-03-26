@@ -3,10 +3,7 @@ package com.wit.burgerapp.controller;
 import com.wit.burgerapp.dao.BurgerDao;
 import com.wit.burgerapp.entity.Burger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,4 +26,8 @@ public class BurgerController {
         return burgerDao.findById(id);
     }
 
+    @PostMapping("/")
+    public Burger save(@RequestBody Burger burger){
+       return burgerDao.save(burger);
+    }
 }
