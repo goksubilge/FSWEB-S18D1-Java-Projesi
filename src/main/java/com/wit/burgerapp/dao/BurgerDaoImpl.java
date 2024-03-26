@@ -47,20 +47,30 @@ public class BurgerDaoImpl implements BurgerDao {
         return query.getResultList();
     }
 
+    // SELECT b FROM Burger b WHERE (b.breadType = white) ORDER BY b.name DESC
     @Override
     public List<Burger> findByBreadType(BreadType breadType) {
-        return null;
+        TypedQuery<Burger> query =
+                entityManager.createQuery("SELECT b FROM Burger b WHERE b.breadType =:breadType ORDER BY b.name DESC", Burger.class);
+        query.setParameter("breadType", breadType);
+        return query.getResultList();
     }
 
+    // SELECT * FROM fsweb.burger AS b WHERE b.contents LIKE '%cheese%'
+    // CONCAT ile çözüm:
     @Override
     public List<Burger> findByContent(String content) {
-        return null;
+        TypedQuery<Burger> query = entityManager.createQuery("SELECT b FROM Burger b WHERE b.contents LIKE CONCAT('%', :content,'%') ORDER BY b.name", Burger.class) ;
+        query.setParameter("content", content);
+        return query.getResultList();
     }
+
     @Transactional
     @Override
     public Burger update(Burger burger) {
         return entityManager.merge(burger);
     }
+
     @Transactional
     @Override
     public Burger remove(int id) {
