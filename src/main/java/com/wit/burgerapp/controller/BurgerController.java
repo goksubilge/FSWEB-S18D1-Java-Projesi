@@ -38,5 +38,9 @@ public class BurgerController {
 
     // id yoksa -> save ,  id varsa -> update yapacak tek bir method yazacağız yarın. "POST + PUT" birleşecek artık.
 
+    @DeleteMapping("/{id}")
+    public Burger remove(int id){
+        return burgerDao.remove(id);
+    }
 
 }
