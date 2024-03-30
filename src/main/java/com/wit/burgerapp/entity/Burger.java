@@ -22,5 +22,5 @@ public class Burger {
     @Enumerated(EnumType.STRING)
     private BreadType breadType;
     @Column(name="contents")
-    private String contents;  // class olabilirdi, olsaydı daha kolay olurdu işimiz.
+    private String contents;  // class olabilirdi, olsaydı daha kolay olurdu işimiz. // List<String> olsaydı Get Request 'i daha kolay olurdu
 }
