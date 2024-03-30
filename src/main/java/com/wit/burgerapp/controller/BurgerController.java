@@ -1,8 +1,10 @@
 package com.wit.burgerapp.controller;
 
 import com.wit.burgerapp.dao.BurgerDao;
+import com.wit.burgerapp.dto.BurgerResponse;
 import com.wit.burgerapp.entity.BreadType;
 import com.wit.burgerapp.entity.Burger;
+import com.wit.burgerapp.util.BurgerResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +20,9 @@ public class BurgerController {
     }
 
     @GetMapping("/")
-    List<Burger> findAll(){
-        return burgerDao.findAll();
+    List<BurgerResponse> findAll(){
+        List<Burger> burgers = burgerDao.findAll();
+        return BurgerResponseEntity.burgerToBurgerResponse(burgers);
     }
 
     @GetMapping("/{id}")
@@ -33,8 +36,9 @@ public class BurgerController {
     }
 
     @PutMapping("/")
-    public Burger update(@RequestBody Burger burger){
-        return burgerDao.update(burger);
+    public BurgerResponse update(@RequestBody Burger burger){
+        Burger updatedBurger = burgerDao.update(burger);
+        return new BurgerResponse(updatedBurger.getName(), updatedBurger.getPrice());
     }
 
     // id yoksa -> save ,  id varsa -> update yapacak tek bir method yazacağız yarın. "POST + PUT" birleşecek artık.

@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 
 public class BurgerValidation {
     public static void CheckBurgerCredentials(Burger burger){
-        if(burger.getName().isEmpty() || burger.getPrice() <= 0){
+        System.out.println(burger);
+        if(burger.getName() == null || burger.getName().isEmpty() || burger.getPrice() <= 0){
             throw new BurgerException("Burger credential is not valid! ", HttpStatus.BAD_REQUEST);
         }
     }
