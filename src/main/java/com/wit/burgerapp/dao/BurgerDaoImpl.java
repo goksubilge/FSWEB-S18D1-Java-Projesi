@@ -2,13 +2,18 @@ package com.wit.burgerapp.dao;
 
 import com.wit.burgerapp.entity.BreadType;
 import com.wit.burgerapp.entity.Burger;
+import com.wit.burgerapp.exceptions.BurgerException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+/*
+Bu Package 'da validation yazılmaz  normalde !
+ */
 
 @Repository  // Bu sınıftan instance oluşturuyor.(Bunu eklemezsen BurgerController Class 'ından hata alırsın, bulamaz burayı.)
 public class BurgerDaoImpl implements BurgerDao {
@@ -23,6 +28,9 @@ public class BurgerDaoImpl implements BurgerDao {
     @Transactional
     @Override
     public Burger save(Burger burger) {
+        if(burger.getName().isEmpty() || burger.getPrice() <= 0){
+            throw new BurgerException("Burger credential is not valid! ", HttpStatus.BAD_REQUEST);
+        }
         entityManager.persist(burger);
         return burger;
     }
@@ -35,6 +43,10 @@ public class BurgerDaoImpl implements BurgerDao {
 
     @Override
     public Burger findById(int id) {
+        Burger burger = entityManager.find(Burger.class, id);
+        if(burger == null){
+            throw new BurgerException("Burger with given id is not exist: " + id, HttpStatus.NOT_FOUND);
+        }
         return entityManager.find(Burger.class, id);
     }
 
