@@ -3,6 +3,7 @@ package com.wit.burgerapp.dao;
 import com.wit.burgerapp.entity.BreadType;
 import com.wit.burgerapp.entity.Burger;
 import com.wit.burgerapp.exceptions.BurgerException;
+import com.wit.burgerapp.util.BurgerValidation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -28,9 +29,7 @@ public class BurgerDaoImpl implements BurgerDao {
     @Transactional
     @Override
     public Burger save(Burger burger) {
-        if(burger.getName().isEmpty() || burger.getPrice() <= 0){
-            throw new BurgerException("Burger credential is not valid! ", HttpStatus.BAD_REQUEST);
-        }
+        BurgerValidation.CheckBurgerCredentials(burger);
         entityManager.persist(burger);
         return burger;
     }
